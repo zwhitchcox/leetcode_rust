@@ -1,25 +1,35 @@
-// use std::collections::HashMap;
-
 pub struct Solution;
 
 impl Solution {
-    pub fn reverse(x: i32) -> i32 {
-        let mut r: i64 = 0;
-        let mut x = x as i64;
-        while x != 0 {
-            r = r * 10 + (x % 10) as i64;
-            x /= 10;
+    pub fn is_palindrome(x: i32) -> bool {
+        if x < 0 {
+            return false;
         }
-        if r as i32 as i64 != r {
-            return 0;
+        let mut digit_count = 1 + (x as f32).log10() as u32;
+        let mut i = 0;
+        loop {
+            if digit_count < 2 {
+                return true;
+            }
+            let most_significance = digit_count + i - 1;
+            let most_significant = (x / 10_i32.pow(most_significance)) % 10;
+            let least_significance = i;
+            let least_significant = (x / 10_i32.pow(least_significance)) % 10;
+            i += 1;
+            digit_count -= 2;
+            if most_significant != least_significant {
+                return false;
+            }
         }
-        r as i32
     }
 }
 
 pub fn main() {
-    println!("result:\n{}", Solution::reverse(-321),);
-    println!("result:\n{}", Solution::reverse(1534236469),);
+    println!("result:\n{}\n{}", Solution::is_palindrome(121), true);
+    println!("result:\n{}\n{}", Solution::is_palindrome(-42), false);
+    println!("result:\n{}\n{}", Solution::is_palindrome(1001), true);
+    println!("result:\n{}\n{}", Solution::is_palindrome(424), true);
+    println!("result:\n{}\n{}", Solution::is_palindrome(425), false);
 }
 
 mod test {
