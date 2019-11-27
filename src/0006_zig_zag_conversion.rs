@@ -1,5 +1,7 @@
 pub struct Solution;
 
+// 0ms, 2.6MB, 100%, 100%
+
 impl Solution {
   pub fn convert(s: String, num_rows: i32) -> String {
     if num_rows == 1 {
