@@ -3,47 +3,24 @@
 pub struct Solution;
 
 impl Solution {
-    pub fn convert(s: String, num_rows: i32) -> String {
-        if num_rows == 1 {
-            return s;
+    pub fn reverse(x: i32) -> i32 {
+        let mut ans = 0;
+        let should_negate = x < 0;
+        let mut x = x.abs();
+        while x > 0 {
+            ans *= 10;
+            ans += x % 10;
+            x /= 10;
         }
-        let num_rows = num_rows as usize;
-        let mut rows = vec![String::new(); num_rows.min(s.len())];
-        let mut row: i32 = 0;
-        let mut increment = 1;
-        for c in s.chars() {
-            rows[row as usize].push(c);
-            row += increment;
-            if num_rows - 1 == row as usize || row == 0 {
-                increment *= -1;
-            }
+        if should_negate {
+            ans *= -1;
         }
-
-        let mut res = String::new();
-        for row in &rows {
-            res.push_str(row);
-        }
-
-        res
+        ans
     }
 }
 
 pub fn main() {
-    println!(
-        "result:\n{}\n{}",
-        Solution::convert("PAYPALISHIRING".to_string(), 3),
-        "PAHNAPLSIIGYIR",
-    );
-    println!(
-        "result:\n{}\n{}",
-        Solution::convert("PAYPALISHIRING".to_string(), 4),
-        "PINALSIGYAHRPI",
-    );
-    println!(
-        "result:\n{}\n{}",
-        Solution::convert("AB".to_string(), 1),
-        "AB",
-    );
+    println!("result:\n{}", Solution::reverse(1534236469),);
 }
 
 mod test {
